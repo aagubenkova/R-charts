@@ -14,12 +14,6 @@ setwd("C:/Users/guben/OneDrive/Рабочий стол")
 data <- read_csv("economy_data.csv.txt")
 
 
-print("Данные успешно загружены:")
-print(head(data))
-print("Структура данных:")
-str(data)
-
-
 data_long <- data %>%
   select(year, inflation, key_rate) %>%
   pivot_longer(cols = c(inflation, key_rate),
@@ -35,12 +29,12 @@ p1 <- ggplot(data_long, aes(x = year, y = percent, color = indicator, group = in
   scale_color_manual(values = c("inflation" = "lightgreen", "key_rate" = "pink"),
                      labels = c("Инфляция (%)", "Ключевая ставка (%)")) +
   labs(
-    title = "📈 Инфляция и ключевая ставка ЦБ РФ",
+    title = "Инфляция и ключевая ставка ЦБ РФ",
     subtitle = "2010-2024 годы | Данные Росстата и ЦБ РФ",
     x = "Год",
     y = "Проценты (%)",
     color = "Показатель",
-    caption = "Красная линия - инфляция | Синяя линия - ключевая ставка\nПунктир - целевой уровень инфляции 4%"
+    caption = "Розовая линия - инфляция | Зеленая линия - ключевая ставка\nПунктир - целевой уровень инфляции 4%"
   ) +
   theme_minimal() +
   theme(
