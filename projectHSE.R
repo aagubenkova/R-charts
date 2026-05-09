@@ -14,9 +14,9 @@ setwd("C:/Users/guben/OneDrive/Рабочий стол")
 data <- read_csv("economy_data.csv.txt")
 
 
-print("📊 Данные успешно загружены:")
+print("Данные успешно загружены:")
 print(head(data))
-print("📋 Структура данных:")
+print("Структура данных:")
 str(data)
 
 
@@ -62,24 +62,19 @@ print(p1)
 
 ggsave("inflation_and_rate.png", width = 12, height = 7, dpi = 300)
 
-
-# ГРАФИК 2: ВВП И БЕЗРАБОТИЦА (два в одном)
-
-
-
 data_scaled <- data %>%
   mutate(
-    gdp_scaled = (gdp_growth + 10) / 20 * 8,  # приводим ВВП к шкале ~0-8%
+    gdp_scaled = (gdp_growth + 10) / 20 * 8, 
     unemployment_scaled = unemployment
   )
 
 p2 <- ggplot(data_scaled, aes(x = year)) +
-  # Колонки для ВВП
+
   geom_col(aes(y = gdp_growth, fill = "ВВП"), alpha = 0.7, width = 0.6) +
-  # Линия для безработицы
+ 
   geom_line(aes(y = unemployment, color = "Безработица"), size = 1.5) +
   geom_point(aes(y = unemployment, color = "Безработица"), size = 3) +
-  # Горизонтальная линия ноля для ВВП
+
   geom_hline(yintercept = 0, linetype = "dashed", color = "black", size = 0.5) +
   scale_fill_manual(values = c("ВВП" = "steelblue"), name = "") +
   scale_color_manual(values = c("Безработица" = "orange"), name = "") +
